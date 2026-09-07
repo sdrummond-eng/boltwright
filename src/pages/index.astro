@@ -1,0 +1,51 @@
+---
+import { formatRevisionDate } from '../lib/revision.js';
+
+// Placeholder page. It exists to prove the pipeline, not to show design work:
+// no masthead (BW-7), no colour tokens (BW-4), no type scale (BW-5), no fonts
+// (BW-3), no layout grid (BW-8). Anything from those issues arriving here would
+// have to be re-reviewed against `brand/brand-guide.md` later.
+//
+// The one thing it does carry is the footer revision date, because
+// `brand/brand-guide.md` §9 is a floor on every page, this one included.
+const lastRevised = new Date('2026-09-07T00:00:00Z');
+
+const descriptor = 'Fastener engineering reference — calculators, geometry, and standards.';
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>boltwright</title>
+    <meta name="description" content={descriptor} />
+    <style>
+      /* Deliberately not a design system. Enough to be legible at 360 px and
+         no more; the real tokens and scale land in BW-4 and BW-5. */
+      body {
+        margin: 0 auto;
+        padding: 2rem 1.5rem;
+        max-width: 42rem;
+        font-family: system-ui, sans-serif;
+        line-height: 1.5;
+      }
+      footer {
+        margin-top: 3rem;
+        font-size: 0.875rem;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>boltwright</h1>
+      <p>{descriptor}</p>
+      <p>
+        Placeholder. The site is scaffolded and the deploy path is wired; no
+        calculators, geometry, or standards content is published yet.
+      </p>
+    </main>
+    <footer>
+      <p>Last revised {formatRevisionDate(lastRevised)}</p>
+    </footer>
+  </body>
+</html>
