@@ -1,11 +1,15 @@
 # Content taxonomy — seven rooms and the entry schema
 
-**Date:** 2026-07-13 (originating work) · recorded here 2026-09-07
+**Decided:** 2026-07-13 (originating work) · recorded here 2026-09-07
 **Status:** **Provisional. Not ratified.** Carried forward as reference for a rethink.
 **Supersedes:** nothing
 **Superseded by:** — (pending)
 
-This is a write-once snapshot of the structure built in the first boltwright tree
+*The `Decided` date above is authoritative — it is not derivable from the filename, and
+the file's mtime is not evidence of anything. This entry is superseded by revising it in
+place; `git log -p` on this file is the record of what changed and when.*
+
+This is a snapshot of the structure built in the first boltwright tree
 (`sdrummond-eng/boltwright`, commit `ea2e528`, Astro + MDX). It is recorded because the
 thinking is worth keeping, not because the structure is settled. Nothing should be built
 against it until a superseding decision ratifies or replaces it.

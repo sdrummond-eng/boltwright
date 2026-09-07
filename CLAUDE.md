@@ -43,12 +43,13 @@ needs a superseding entry in `decisions/`. Do not resolve the conflict silently.
 | | |
 |---|---|
 | **`brand/`** | The design system. Binding. Changes are superseded via `decisions/`, never edited in place to mean something new. |
-| **`decisions/`** | ADRs and post-mortems. **Write-once.** A dated snapshot of reasoning, never current state. Filenames carry the date (`YYYY-MM-DD-slug.md`) because superseding is expected here — standards get revised and choices get revisited. |
+| **`decisions/`** | ADRs and post-mortems. A snapshot of reasoning, never current state. Filenames are an undated slug (`slug.md`); the date lives in the `**Decided:**` field at the top of the document. Superseding is expected here — standards get revised and choices get revisited — and is carried by **git history, not by accumulating files**: revise the entry in place and update its `**Decided:**` field, and `git log -p decisions/<slug>.md` is the record of what changed and when. A revision that reverses a decision says so in the body rather than quietly deleting the old reasoning — the diff shows what changed, but only the prose can say why. |
 | **`reference/`** | Generic material with no boltwright specifics. |
 | **Linear** | Team `Boltwright` (`BW-*`) — the task tracker and the single source of truth for done vs open. Unlike the ironridge team, issue titles and bodies here can be specific: there is nothing sensitive about a public reference site. |
 
-Directories for the site itself are not created yet — the framework choice is its own
-decision and gets its own ADR before anything is scaffolded.
+Directories for the site itself are not created yet. The framework, hosting, and deploy
+path are settled in `decisions/framework-and-hosting.md` — read it before scaffolding
+anything, and supersede it rather than departing from it.
 
 ## Documentation hygiene
 
