@@ -51,7 +51,10 @@ which are most of the site, ship no runtime at all, and only a calculator hydrat
 the content collection schema is Zod-validated at build time, which the entry schema in
 `decisions/content-taxonomy.md` needs: `sources[]`, `flag`, `dataRung` and a
 `draft` publication gate are all build-time-enforceable rather than conventions someone
-has to remember.
+has to remember. *(Revised 2026-09-07: `flag` and `dataRung` no longer exist — the ratified
+schema drops them and adds a `verification` block. The argument is unaffected and is in fact
+stronger, since the verification gate depends on build-time validation in a way the
+confidence fields never did.)*
 
 **Alternatives and why they lost:**
 
@@ -68,7 +71,23 @@ BW-2 closing comment. The July tree was on Astro 7. The lockfile is committed
 version written into a doc goes stale silently.
 
 **MDX.** Yes, for article entries — prose that embeds a live calculator or a spec callout
-is the whole point of the format. Calculator pages themselves are components, not MDX.
+is the whole point of the format.
+
+*Revised 2026-09-07.* This paragraph originally continued: "Calculator pages themselves are
+components, not MDX." **That is reversed — calculator pages are MDX entries too.** It is a
+reversal on the merits rather than a correction of fact, so the original wording is quoted
+here rather than replaced.
+
+The reasoning that overturns it is that `brand/brand-guide.md` §7 puts the calculator and its
+full explanation on one page, never split — the derivation, the assumption set in full, the
+worked example, and links to the articles explaining each input all sit below the fold. That
+is substantial prose, and an `.astro` page makes writing it worse for no gain. The interactive
+part is an imported island either way, so the choice was only ever about the prose around it.
+The alternative — a component page plus a separate collection entry carrying its metadata —
+splits one entry across two files and puts its title, sources, and verification record
+somewhere other than the thing they vouch for, which `CLAUDE.md`'s "one home per fact"
+forbids and which `decisions/verification-and-authorship.md` depends on not happening.
+Calculator *components* remain components; calculator *pages* are MDX.
 
 ## Decision 2 — Calculator runtime: vanilla TypeScript, no client framework
 
@@ -195,12 +214,21 @@ specific misconfiguration that would silently disarm "nothing ships behind a cla
   to rooms remains open per `decisions/content-taxonomy.md`.
 - The confidence-versus-currency tension in that ADR is untouched here. It is a content
   modelling decision, not a framework one, and needs its own entry.
+
+  *Revised 2026-09-07.* Both bullets were true when written and were overtaken the same day.
+  `decisions/content-taxonomy.md` has since been ratified: rooms are no longer the primary
+  axis, `topic` replaces `room` as a cross-cutting tag, and the confidence fields are dropped
+  rather than reconciled. Neither outcome disturbs anything decided here — which is the point
+  the bullets were making, and it held. They are left standing rather than rewritten, because
+  a prediction that came true is worth more as a record than as a deletion.
 - No CMS. Entries are files in the repo, and revision history is git.
 
 ## What this does not decide
 
 - The taxonomy, the nav shape, and whether calculators are entries in rooms or a parallel
-  axis.
+  axis. *(Decided 2026-09-07 in `decisions/content-taxonomy.md`: artifact type is the
+  primary axis and calculators are their own collection. Left listed, because what this
+  entry declined to decide is part of its record.)*
 - Search. The guide's article mockup shows a search field in the masthead; whether that is
   a client-side index or is deferred is a separate decision.
 - Whether a Cloudflare Pages project already exists for this domain, and the registrar of
