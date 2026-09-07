@@ -44,12 +44,19 @@ needs a superseding entry in `decisions/`. Do not resolve the conflict silently.
 |---|---|
 | **`brand/`** | The design system. Binding. Changes are superseded via `decisions/`, never edited in place to mean something new. |
 | **`decisions/`** | ADRs and post-mortems. A snapshot of reasoning, never current state. Filenames are an undated slug (`slug.md`); the date lives in the `**Decided:**` field at the top of the document. Superseding is expected here — standards get revised and choices get revisited — and is carried by **git history, not by accumulating files**: revise the entry in place and update its `**Decided:**` field, and `git log -p decisions/<slug>.md` is the record of what changed and when. A revision that reverses a decision says so in the body rather than quietly deleting the old reasoning — the diff shows what changed, but only the prose can say why. |
+| **`src/`** | The site itself. `src/pages/` is routes, `src/lib/` is the pure TypeScript modules the tests import — calculation cores are numbers in and numbers out, no DOM, per `decisions/framework-and-hosting.md`. |
 | **`reference/`** | Generic material with no boltwright specifics. |
 | **Linear** | Team `Boltwright` (`BW-*`) — the task tracker and the single source of truth for done vs open. Unlike the ironridge team, issue titles and bodies here can be specific: there is nothing sensitive about a public reference site. |
 
-Directories for the site itself are not created yet. The framework, hosting, and deploy
-path are settled in `decisions/framework-and-hosting.md` — read it before scaffolding
-anything, and supersede it rather than departing from it.
+The framework, hosting, and deploy path are settled in `decisions/framework-and-hosting.md`
+— read it before adding anything to the build, and supersede it rather than departing from it.
+
+**`npm run build` is the deploy gate, not a convenience script.** It runs `astro check`, then
+`vitest run`, then `astro build`, and Cloudflare Pages is pointed at that exact command — so a
+failing type-check or a failing pinned worked example stops the deploy instead of shipping.
+Any change that lets a stage fail without a non-zero exit silently disarms "nothing ships
+behind a claim." If you add a stage, break it on purpose once and confirm the build still
+aborts and leaves no `dist/`.
 
 ## Documentation hygiene
 

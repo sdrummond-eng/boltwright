@@ -30,3 +30,6 @@ pnpm-debug.log*
 # Editor and OS noise.
 .idea/
 .DS_Store
+
+# Local Claude Code settings. Machine-specific, not shared state.
+.claude/settings.local.json

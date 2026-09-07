@@ -1,6 +1,6 @@
 # Framework, hosting, and deploy path
 
-**Decided:** 2026-09-07
+**Decided:** 2026-09-07 · last revised 2026-09-07
 **Status:** Accepted
 **Supersedes:** nothing
 **Superseded by:** —
@@ -169,8 +169,15 @@ specific misconfiguration that would silently disarm "nothing ships behind a cla
 
 ## Consequences
 
-- BW-2 scaffolds Astro with MDX, Vitest, and self-hosted IBM Plex Sans, Plex Mono, and
-  Source Serif 4 subsets. Fonts are committed to the repo, not fetched at build.
+- BW-2 scaffolds Astro with MDX and Vitest.
+
+  *Revised 2026-09-07.* This bullet originally put the self-hosted IBM Plex Sans, Plex Mono,
+  and Source Serif 4 subsets in BW-2 as well. That was wrong on the facts rather than on the
+  merits: BW-3 already exists as a standalone issue for exactly that work, and BW-2's own body
+  scopes itself to the pipeline and not the content. The constraint above is untouched — fonts
+  are self-hosted and subset, committed to the repo, never fetched at build. Only which issue
+  carries the work has moved, to BW-3. Recorded rather than quietly corrected because a reader
+  of this entry could otherwise conclude the font constraint had been dropped.
 - The seven-room taxonomy is still unratified. Astro's collection model does not force
   that decision either way — `room` is a schema field, and where calculators sit relative
   to rooms remains open per `decisions/content-taxonomy.md`.
