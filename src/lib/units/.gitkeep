@@ -1,0 +1,1 @@
+# Conversion and the global unit store. Conversion happens at the boundary, never inside a calc core.
