@@ -37,6 +37,14 @@ needs a superseding entry in `decisions/`. Do not resolve the conflict silently.
   revised, the change is a `decisions/` entry and a revision-block row — not a silent edit.
 - **Units are a correctness concern, not a display concern.** Conversions are tested. A
   metric/imperial toggle that rounds differently in the two paths is a bug.
+- **You do not write the `verification` block. Ever.** It is the one thing in this tree
+  that means a human opened the standard and confirmed the number, and it means nothing
+  the moment an agent can produce it. Leave the entry `draft: true` with the block absent
+  and hand over what the check needs: the formula as implemented, the standard, clause and
+  edition it claims, the input set, the computed result, and where the confirming example
+  should be. `src/content.config.ts` fails the build on a published entry without one, and
+  a `PreToolUse` hook rejects the write outright. Clearing a stale block is allowed.
+  Full reasoning in `decisions/verification-and-authorship.md`.
 
 ## Where things live
 
@@ -44,12 +52,17 @@ needs a superseding entry in `decisions/`. Do not resolve the conflict silently.
 |---|---|
 | **`brand/`** | The design system. Binding. Changes are superseded via `decisions/`, never edited in place to mean something new. |
 | **`decisions/`** | ADRs and post-mortems. A snapshot of reasoning, never current state. Filenames are an undated slug (`slug.md`); the date lives in the `**Decided:**` field at the top of the document. Superseding is expected here — standards get revised and choices get revisited — and is carried by **git history, not by accumulating files**: revise the entry in place and update its `**Decided:**` field, and `git log -p decisions/<slug>.md` is the record of what changed and when. A revision that reverses a decision says so in the body rather than quietly deleting the old reasoning — the diff shows what changed, but only the prose can say why. |
-| **`src/`** | The site itself. `src/pages/` is routes, `src/lib/` is the pure TypeScript modules the tests import — calculation cores are numbers in and numbers out, no DOM, per `decisions/framework-and-hosting.md`. |
+| **`src/`** | The site itself. `src/pages/` is routes; `src/lib/` is the pure TypeScript modules the tests import — calculation cores are numbers in and numbers out, no DOM, per `decisions/framework-and-hosting.md`; `src/content/` is the four collections (calculators, visualizers, articles, resources) per `decisions/content-taxonomy.md`; `src/components/` splits into `brand/`, `devices/` (the structural devices of `brand/brand-guide.md` §6), `calc/`, and `viz/`. |
+| **`src/content.config.ts`** | The entry schema, and the enforcement point for the publication rules. Not lint — it runs inside `astro check`, so a schema failure is a failed deploy. Read it before adding a frontmatter field anywhere. |
 | **`reference/`** | Generic material with no boltwright specifics. |
+| **`.claude/`** | Project skills (`/calculator`, `/verify`, `/close-issue`, `/adr`) and the hook that enforces the verification gate. Committed, because these rules bind the project rather than one machine — `settings.local.json` is gitignored and is not the place for them. |
 | **Linear** | Team `Boltwright` (`BW-*`) — the task tracker and the single source of truth for done vs open. Unlike the ironridge team, issue titles and bodies here can be specific: there is nothing sensitive about a public reference site. |
 
 The framework, hosting, and deploy path are settled in `decisions/framework-and-hosting.md`
 — read it before adding anything to the build, and supersede it rather than departing from it.
+What the site publishes and what it refuses is settled in `decisions/scope-and-surfaces.md`;
+its Decision 2 draws a copyright boundary around reproducing standards tables, which
+constrains every data-table task.
 
 **`npm run build` is the deploy gate, not a convenience script.** It runs `astro check`, then
 `vitest run`, then `astro build`, and Cloudflare Pages is pointed at that exact command — so a
