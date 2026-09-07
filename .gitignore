@@ -1,0 +1,32 @@
+# Build output — regenerated from source, never reviewed, never authoritative.
+dist/
+build/
+.output/
+
+# Framework-generated type and cache directories. Derived state, not source.
+.astro/
+.next/
+.svelte-kit/
+.cache/
+
+# Dependencies. Reconstructed from the lockfile, which IS committed.
+node_modules/
+
+# Python, if any tooling lands here.
+__pycache__/
+.venv/
+
+# Logs.
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# Environment. Nothing in this repo should need a secret; if a .env appears,
+# that is a question to answer, not a file to commit.
+.env
+.env.*
+!.env.example
+
+# Editor and OS noise.
+.idea/
+.DS_Store
