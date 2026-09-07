@@ -15,7 +15,7 @@ has to meet before it counts as done, and the documentation hygiene rules.
 | [decisions/](decisions/) | ADRs and post-mortems — write-once, dated, never current state |
 | [reference/](reference/) | Generic material, no boltwright specifics |
 
-Task tracking lives in Linear. Cross-references between docs are repo-root-relative paths,
+Task tracking lives in Linear, team `Boltwright`. Cross-references between docs are repo-root-relative paths,
 so they resolve from any depth.
 
 ## Status
