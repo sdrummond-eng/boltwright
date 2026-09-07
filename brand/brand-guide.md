@@ -122,6 +122,8 @@ Table cell      16 / 1.4    Plex Sans 400, mono for numeric columns
 
 Each of these encodes information. None is decoration.
 
+> A fifth device, the **visualizer**, is defined in `decisions/visualizer-device.md` rather than here. It postdates this section.
+
 **Revision block.** Replaces the standard byline. Sits directly under the article h1, styled as a drawing revision table — thin rules, mono, four columns:
 
 ```
@@ -224,6 +226,8 @@ Input panel pinned left (sticky on scroll), results right, updating live with no
 - **Links are `--chromate` with a 1px underline at 0.12em offset.** No arrow glyphs appended to link text.
 - **Focus rings are visible and mandatory** — 2px `--chromate`, 2px offset. Engineers use keyboard navigation.
 - **Motion:** one place only. Result values transition their numeric change over 120 ms so the eye catches what moved. Nothing else animates. No scroll-triggered reveals, no card hover lifts.
+  One narrow exception exists, for geometry moving under the reader's own pointer inside a
+  visualizer: `decisions/visualizer-device.md`. It does not relax anything above.
 - **Every result is copyable.** A copy control on each result row yields the value, its unit, and the assumption line as plain text — because it's going into someone's calculation notes.
 
 ---
