@@ -123,11 +123,23 @@ record are already administered in the same place the deploy lives.
 | **GitHub Pages via Actions** | The genuine runner-up. Its expected advantage — no credential to manage — evaporates once Cloudflare's native Git integration is used instead of `wrangler` (Decision 4), since that path needs no token either. What remains is that GitHub Pages keeps the build definition in a committed workflow file rather than in dashboard settings. It loses on preview deployments, and on splitting DNS from deploy across two providers when one already holds the zone. |
 | **Netlify** | Functionally close to Cloudflare Pages, with a tighter free build tier, and it would mean a third vendor when the zone is already at Cloudflare. Nothing this site needs is Netlify-specific. |
 
-**The accepted cost.** The build runs in Cloudflare's environment rather than one this
-repo fully specifies — Node version is set in project settings, not in a committed file,
-which is one piece of build configuration living outside version control. That is the
-trade for needing no credential; see Decision 4. If it becomes a problem, the move is to
-Actions plus `wrangler`, which brings the build back into the repo at the cost of a token.
+**The accepted cost.** The build runs in Cloudflare's environment rather than one this repo
+fully specifies. That is the trade for needing no credential; see Decision 4. If it becomes
+a problem, the move is to Actions plus `wrangler`, which brings the build back into the repo
+at the cost of a token.
+
+*Revised 2026-09-07.* This paragraph originally claimed the Node version was part of that
+cost — "set in project settings, not in a committed file." That was wrong, and it was
+wrong at the time of writing rather than overtaken by events. Cloudflare Pages reads a
+committed `.nvmrc`, verified in the BW-2 preview build log: `Detected the following tools
+from environment: nodejs@22.23.1, npm@10.9.2`, followed by `Installing nodejs 22.23.1`.
+No `NODE_VERSION` variable is set in the project settings, deliberately, so the committed
+file stays authoritative and the version moves by commit like everything else.
+
+The cost is therefore smaller than stated, not absent. What remains outside version control
+is the rest of the build environment — base image, the `npm` the image ships, and the
+toolchain installer — which the repo does not pin and cannot. Node, the one part of it that
+would actually change build output, is pinned in the tree.
 
 **Analytics.** None. Cloudflare Web Analytics is cookieless and would be permissible under
 `brand/brand-guide.md` §9, but "no analytics requiring consent" is a floor, not a target,
@@ -152,8 +164,8 @@ publishes production from `main` with a preview per pull request. The alternativ
 in GitHub Actions, deploy the artifact with `wrangler` — gives finer control over the
 build environment but requires a `CLOUDFLARE_API_TOKEN` and account ID in Actions secrets.
 The native path requires no credential anywhere, which is the better answer for a repo
-whose rule is that nothing here should need a secret. Node version is pinned by
-environment variable in the Pages project settings rather than by a workflow file.
+whose rule is that nothing here should need a secret. Node version is pinned by a committed
+`.nvmrc`, which Cloudflare honours — see the revision under Decision 3.
 
 **Credentials: none.** No API token, no `.env`. The `.gitignore` `.env` rule stays as
 written and remains unexercised. If the build environment ever proves too constrained and
