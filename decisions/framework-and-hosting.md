@@ -164,7 +164,7 @@ would actually change build output, is pinned in the tree.
 `brand/brand-guide.md` §9, but "no analytics requiring consent" is a floor, not a target,
 and the site has no decision that traffic data would inform.
 
-## Decision 4 — Deploy trigger: push to `main` on `origin`
+## Decision 4 — Deploy trigger: a merge to `main` on `origin`
 
 Build and deploy on push to `main` at `sdrummond-eng/boltwright`. No scheduled rebuilds —
 the content is static and a standard's revision is a commit, not a cron event.
@@ -195,6 +195,35 @@ secrets and never in the tree — but that is a change to make deliberately, not
 has to be inside it — the build command is the gate, and a non-zero exit from the tests
 fails the deploy. BW-2 wires it that way. A build command that runs only the build is the
 specific misconfiguration that would silently disarm "nothing ships behind a claim."
+
+**`main` accepts no direct pushes.** *Added 2026-09-07, BW-23.* An enforcing GitHub ruleset
+(`main - require PR`) requires a pull request for every change to `main`, with an **empty
+bypass list**. That last part is the whole of it. The list originally held `Repository
+admin`, on the assumption that it exempted Sam while still constraining the repo-scoped
+deploy key that agent sessions push with. It exempted both — a deploy key is evaluated
+against that list as an admin. Falsified by pushing the same empty commit twice, varying
+only the bypass list: with `[Repository admin]` the remote replied `Bypassed rule
+violations for refs/heads/main` and the ref moved; with `[]` it replied `GH013: Repository
+rule violations found` and declined.
+
+The heading above is revised accordingly. The trigger is a **merge** to `main`, not a push
+to it, and that is now true of every actor including Sam.
+
+**The gate is a merge gate, not only a deploy gate.** The ruleset requires the Cloudflare
+Pages check, so a failing `npm run build` no longer merely fails the deploy after the
+commit has landed — it blocks the merge. The difference is load-bearing for "nothing ships
+behind a claim": under the old arrangement a bad commit reached `main` and was stopped at
+the deploy, leaving `main` in a state that does not build and a site quietly serving the
+last good version. Now it does not reach `main` at all. Confirmed 2026-09-07 on PR #3
+rather than assumed — a deliberately failing test produced a failing Cloudflare build, a
+red check tagged `Required`, and a merge GitHub refused as blocked.
+
+**The rule this leaves behind.** A bypass entry applies to *every* rule in the set, not
+only the one being reasoned about — `Block force pushes` and `Restrict deletions` were
+equally inert while `Repository admin` sat in that list. **Do not add a rule to this
+ruleset without re-checking the bypass list.** The failure mode is not an absent gate,
+which is visible; it is a gate that looks armed, does nothing, and retires the worry that
+would otherwise have caught it.
 
 ---
 

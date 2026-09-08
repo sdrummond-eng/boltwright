@@ -46,8 +46,9 @@ Vitest, four empty collections, and a single placeholder page. See
 was chosen.
 
 `npm run build` is the deploy gate: it type-checks and runs the tests before it builds, and
-Cloudflare Pages runs that same command, so a failing test does not reach the site. The
-type-check stage also validates every content entry against
+Cloudflare Pages runs that same command. That check is also required on every pull request,
+and `main` accepts no direct pushes — so a failing test reaches neither `main` nor the site.
+The type-check stage also validates every content entry against
 [src/content.config.ts](src/content.config.ts), so an entry published without a signed
 verification record fails the build rather than the review.
 

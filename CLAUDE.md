@@ -16,6 +16,12 @@ needs a superseding entry in `decisions/`. Do not resolve the conflict silently.
 - **One change per window.** One thing, then verify, then the next.
 - **Nothing ships behind a claim.** A calculator is not done because it renders. See
   Standards below.
+- **`main` takes no direct pushes — every change reaches it as a PR.** The ruleset on
+  `origin` enforces this with an empty bypass list, so it binds Sam, you, and the deploy
+  key identically. Branch, push the branch, open the PR. The Cloudflare Pages check is
+  required, so a failing `npm run build` blocks the *merge* and not just the deploy. The
+  mechanism and the falsification behind it are `decisions/framework-and-hosting.md`
+  Decision 4 — read it before touching that ruleset.
 - **Never commit a secret.** No API keys, no analytics tokens, no deploy credentials in
   the tree. There is nothing here that needs one — if something appears to, stop and ask.
 
