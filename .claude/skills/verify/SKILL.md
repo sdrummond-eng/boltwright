@@ -38,7 +38,7 @@ Flag any divergence between the two loudly. It is the single most likely defect.
 Name the choice that was made and could have gone another way. This is the part worth the
 human's evening. For example:
 
-> `As` uses the nominal stress area, `π/4 · (d − 0.938194·P)²`. ISO 898-1:2024 §9.1.6
+> `As` uses the nominal stress area, `π/4 · (d − 0.938194·P)²`. ISO 898-1:2013 §9.1.6
 > defines this for tensile testing. Confirm this is the right area for a *preload*
 > calculation under the case this page claims, rather than the minimum cross-section area
 > `As,min`. The two differ by roughly 3% at M10 and the page does not currently say which
@@ -71,7 +71,7 @@ Print this as a fenced block **in chat**. Do not write it to the file:
 ```yaml
 verification:
   standard: ISO 898-1        # from the entry's sources
-  edition: '2024'
+  edition: '2013'
   clause: §9.1, Table 5
   method:                    # ← you: worked-example | hand-check | cross-tool
   evidence:                  # ← you: what the check left behind
@@ -92,7 +92,7 @@ They paste the block and set `draft: false`. Then:
 
 ## Re-verification
 
-`verifiedOn` does not expire — a correct check of ISO 898-1:2024 does not decay. Two
+`verifiedOn` does not expire — a correct check of ISO 898-1:2013 does not decay. Two
 things invalidate it, both mechanical:
 
 1. **The cited edition is superseded.** Also a `decisions/` entry and a revision-block row.

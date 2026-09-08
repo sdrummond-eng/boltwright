@@ -43,10 +43,10 @@ assertion is the exact defect this repo exists against — it proves the code ag
 itself.
 
 ```ts
-// ISO 898-1:2024 §9.1, Table 5. Class 10.9, M10 x 1.5:
+// ISO 898-1:2013 §9.1, Table 5. Class 10.9, M10 x 1.5:
 // As = 58.0 mm², Sp = 830 MPa → Fp = 48.1 kN.
 // Target 65% of proof load → Fi = 31.3 kN.
-it('agrees with the worked example in ISO 898-1:2024 §9.1', () => {
+it('agrees with the worked example in ISO 898-1:2013 §9.1', () => {
 ```
 
 Where no published example exists, record the hand-working in the test as a comment, step

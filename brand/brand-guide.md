@@ -128,7 +128,7 @@ Each of these encodes information. None is decoration.
 
 ```
 REV   DATE          BY   DESCRIPTION
-C     2026-08-14    SW   Updated for ISO 898-1:2024 property class table
+C     2026-08-14    SW   Updated for ISO 898-1:2013 property class table
 B     2026-03-02    SW   Added nut factor sensitivity section
 A     2025-11-19    SW   Initial issue
 ```
@@ -183,7 +183,7 @@ The hero is a **working calculator**, not a headline. Someone can compute a torq
 │  Joint stiffness · Thread engagement · Shear strength …  │
 ├──────────────────────────────────────────────────────────┤
 │  Recently revised                                        │
-│  Rev C  Property classes under ISO 898-1:2024            │
+│  Rev C  Property classes under ISO 898-1:2013            │
 └──────────────────────────────────────────────────────────┘
 ```
 
