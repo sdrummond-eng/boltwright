@@ -3,7 +3,7 @@ import { formatRevisionDate } from './revision.js';
 
 describe('formatRevisionDate', () => {
   // Expected format taken from the revision-block example in
-  // `brand/brand-guide.md` §6: `C  2026-08-14  SW  Updated for ISO 898-1:2024`.
+  // `brand/brand-guide.md` §6: `C  2026-08-14  SW  Updated for ISO 898-1:2013`.
   it('formats a date as an ISO calendar date', () => {
     expect(formatRevisionDate(new Date('2026-08-14T12:00:00Z'))).toBe('2026-08-14');
   });

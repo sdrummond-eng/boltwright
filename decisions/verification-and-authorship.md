@@ -61,7 +61,7 @@ deploy.
 ```yaml
 verification:
   standard: ISO 898-1        # designation
-  edition: '2024'            # editions supersede; the year is part of the citation
+  edition: '2013'            # editions supersede; the year is part of the citation
   clause: §9.1, Table 5      # where in the document
   method: worked-example     # worked-example | hand-check | cross-tool
   evidence: src/lib/calc/preload.test.ts::M10 x 1.5, class 10.9
@@ -87,7 +87,7 @@ thing it vouches for, and travel with it in the same commit.
 
 ## Decision 3 — Re-verification is triggered by revision, not by time
 
-`verifiedOn` does not expire. A correct check of ISO 898-1:2024 does not become incorrect
+`verifiedOn` does not expire. A correct check of ISO 898-1:2013 does not become incorrect
 in six months.
 
 What invalidates it is a change to what was checked. Two triggers, both mechanical:
